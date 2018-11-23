@@ -1,4 +1,4 @@
-package hua.news.emoji.emoji.core;
+package com.hua.emojikeyboard_core.core;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

@@ -1,11 +1,8 @@
-package hua.news.emoji.emoji.core;
+package com.hua.emojikeyboard_core.core;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * Created by hua on 2017/10/8.

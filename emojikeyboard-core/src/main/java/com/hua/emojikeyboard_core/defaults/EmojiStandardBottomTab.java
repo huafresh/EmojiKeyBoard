@@ -1,10 +1,9 @@
-package hua.news.emoji.emoji.defaults;
+package com.hua.emojikeyboard_core.defaults;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import hua.news.emoji.emoji.core.IEmojiBottomTab;
-import hua.news.emoji.emoji.core.IEmojiPage;
+import com.hua.emojikeyboard_core.core.IEmojiBottomTab;
 
 /**
  * Author: hua

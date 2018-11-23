@@ -1,4 +1,4 @@
-package hua.news.emoji.emoji.core;
+package com.hua.emojikeyboard_core.core;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,12 +9,10 @@ import android.text.style.ImageSpan;
 import android.view.KeyEvent;
 import android.widget.EditText;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import hua.news.emoji.emoji.EmojiKeyBoard;
+import com.hua.emojikeyboard_core.EmojiKeyBoard;
 
 /**
  * Author: hua

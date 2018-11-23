@@ -1,4 +1,4 @@
-package hua.news.emoji.emoji.core;
+package com.hua.emojikeyboard_core.core;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package hua.news.emoji.emoji.defaults;
+package com.hua.emojikeyboard_core.defaults;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import hua.news.emoji.emoji.core.Indicator;
+import com.hua.emojikeyboard_core.core.Indicator;
 
 
 /**

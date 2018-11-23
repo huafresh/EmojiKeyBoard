@@ -15,8 +15,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import hua.news.emoji.emoji.EmojiKeyBoard;
-import hua.news.emoji.emoji.core.SimpleViewPagerAdapter;
+import com.hua.emojikeyboard_core.EmojiKeyBoard;
+import com.hua.emojikeyboard_core.core.SimpleViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

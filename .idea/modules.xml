@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Emoji.iml" filepath="$PROJECT_DIR$/Emoji.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EmojiKeyBoard.iml" filepath="$PROJECT_DIR$/EmojiKeyBoard.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/emojikeyboard-core/emojikeyboard-core.iml" filepath="$PROJECT_DIR$/emojikeyboard-core/emojikeyboard-core.iml" />
     </modules>
   </component>
 </project>

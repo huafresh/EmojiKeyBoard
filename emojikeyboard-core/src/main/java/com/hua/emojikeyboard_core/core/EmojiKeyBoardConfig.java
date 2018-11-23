@@ -1,13 +1,11 @@
-package hua.news.emoji.emoji.core;
+package com.hua.emojikeyboard_core.core;
 
 import android.content.Context;
-import android.os.Environment;
-import android.view.View;
 
 import java.util.HashMap;
 import java.util.List;
 
-import hua.news.emoji.emoji.EmojiKeyBoard;
+import com.hua.emojikeyboard_core.EmojiKeyBoard;
 
 /**
  * Author: hua

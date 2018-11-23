@@ -1,12 +1,12 @@
-package hua.news.emoji.emoji.defaults;
+package com.hua.emojikeyboard_core.defaults;
 
 import android.content.Context;
 
-import hua.news.emoji.emoji.core.EmojiEntity;
-import hua.news.emoji.emoji.core.EmojiKeyBoardConfig;
-import hua.news.emoji.emoji.core.IEmojiBottomTab;
-import hua.news.emoji.emoji.core.IEmojiMemoryCache;
-import hua.news.emoji.emoji.core.IEmojiPage;
+import com.hua.emojikeyboard_core.core.EmojiEntity;
+import com.hua.emojikeyboard_core.core.EmojiKeyBoardConfig;
+import com.hua.emojikeyboard_core.core.IEmojiBottomTab;
+import com.hua.emojikeyboard_core.core.IEmojiMemoryCache;
+import com.hua.emojikeyboard_core.core.IEmojiPage;
 
 /**
  * Author: hua

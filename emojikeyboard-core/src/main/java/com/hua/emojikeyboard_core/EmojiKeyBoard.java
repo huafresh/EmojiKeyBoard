@@ -1,4 +1,4 @@
-package hua.news.emoji.emoji;
+package com.hua.emojikeyboard_core;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -20,13 +20,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import hua.news.emoji.emoji.core.EditTextWrapper;
-import hua.news.emoji.emoji.core.EmojiEntity;
-import hua.news.emoji.emoji.core.EmojiKeyBoardConfig;
-import hua.news.emoji.emoji.core.IEmojiBottomTab;
-import hua.news.emoji.emoji.core.IEmojiPage;
-import hua.news.emoji.emoji.core.SimpleViewPagerAdapter;
-import hua.news.emoji.emoji.defaults.BaseEmojiKeyBoardConfig;
+import com.hua.emojikeyboard_core.core.EditTextWrapper;
+import com.hua.emojikeyboard_core.core.EmojiEntity;
+import com.hua.emojikeyboard_core.core.EmojiKeyBoardConfig;
+import com.hua.emojikeyboard_core.core.IEmojiBottomTab;
+import com.hua.emojikeyboard_core.core.IEmojiPage;
+import com.hua.emojikeyboard_core.core.SimpleViewPagerAdapter;
+import com.hua.emojikeyboard_core.defaults.BaseEmojiKeyBoardConfig;
 
 /**
  * Created by hua on 2017/10/8.
@@ -37,25 +37,45 @@ import hua.news.emoji.emoji.defaults.BaseEmojiKeyBoardConfig;
  */
 
 public class EmojiKeyBoard {
-    /** 表情图片根目录名称 */
+    /**
+     * 表情图片根目录名称
+     */
     public static final String EMOJI_ROOT_DIR_NAME = "emoji";
-    /** 无表情图片界面提示 */
+    /**
+     * 无表情图片界面提示
+     */
     private static final String NO_EMOJI = "暂无表情图片";
-    /** 以文件夹名称为key存储每个页面每个表情图片的名称 */
+    /**
+     * 以文件夹名称为key存储每个页面每个表情图片的名称
+     */
     private HashMap<String, List<String>> sEmojiNameMap = new HashMap<>();
-    /** 顶部分割线颜色 */
+    /**
+     * 顶部分割线颜色
+     */
     private static final int TOP_LINE_COLOR = 0xffdddddd;
-    /** 表情键盘布局视图，这里保存起来避免多次创建 */
+    /**
+     * 表情键盘布局视图，这里保存起来避免多次创建
+     */
     private WeakReference<LinearLayout> mKeyBoardLayout;
-    /** 表情键盘输入目标 */
+    /**
+     * 表情键盘输入目标
+     */
     private WeakReference<EditText> mTarget;
-    /** 表情键盘的配置 */
+    /**
+     * 表情键盘的配置
+     */
     private EmojiKeyBoardConfig mKeyBoardConfig;
-    /** 可识别的表情图片后缀 */
+    /**
+     * 可识别的表情图片后缀
+     */
     private static String[] emojiSuffixs = new String[]{".png", ".jpg", ".jpeg"};
-    /** 读取到内存的表情图片的数量 */
+    /**
+     * 读取到内存的表情图片的数量
+     */
     private static final int EMOJI_COUNT = 50;
-    /** 表情键盘是否弹出 */
+    /**
+     * 表情键盘是否弹出
+     */
     private boolean isShowing = false;
 
     public static EmojiKeyBoard getInstance() {

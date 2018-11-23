@@ -1,9 +1,9 @@
-package hua.news.emoji.emoji.defaults;
+package com.hua.emojikeyboard_core.defaults;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
-import hua.news.emoji.emoji.core.IEmojiMemoryCache;
+import com.hua.emojikeyboard_core.core.IEmojiMemoryCache;
 
 /**
  * Author: hua

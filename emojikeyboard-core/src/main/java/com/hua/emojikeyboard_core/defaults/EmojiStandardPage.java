@@ -1,4 +1,4 @@
-package hua.news.emoji.emoji.defaults;
+package com.hua.emojikeyboard_core.defaults;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,13 +27,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import hua.news.emoji.emoji.EmojiKeyBoard;
-import hua.news.emoji.emoji.core.EditTextWrapper;
-import hua.news.emoji.emoji.core.EmojiEntity;
-import hua.news.emoji.emoji.core.IEmojiMemoryCache;
-import hua.news.emoji.emoji.core.IEmojiPage;
-import hua.news.emoji.emoji.core.Indicator;
-import hua.news.emoji.emoji.core.SimpleViewPagerAdapter;
+import com.hua.emojikeyboard_core.EmojiKeyBoard;
+import com.hua.emojikeyboard_core.core.EditTextWrapper;
+import com.hua.emojikeyboard_core.core.EmojiEntity;
+import com.hua.emojikeyboard_core.core.IEmojiMemoryCache;
+import com.hua.emojikeyboard_core.core.IEmojiPage;
+import com.hua.emojikeyboard_core.core.Indicator;
+import com.hua.emojikeyboard_core.core.SimpleViewPagerAdapter;
 
 /**
  * Created by hua on 2017/10/8.
@@ -51,28 +51,44 @@ public class EmojiStandardPage implements IEmojiPage {
     public static final int PER_PAGE_COUNT = COLUMN_COUNT * ROW_COUNT;
 
     private static final String DEFAULT_DELETE_EMOJI_NAME = "emoji_delete.png";
-    /** 没有表情图片的名称 */
+    /**
+     * 没有表情图片的名称
+     */
     private static final String EMPTY_EMOJI_NAME = "empty";
 
-    /** 表情输入的目标 */
+    /**
+     * 表情输入的目标
+     */
     private EditTextWrapper mEditTextWrapper;
 
-    /** 创建此表情页面使用的资源 */
+    /**
+     * 创建此表情页面使用的资源
+     */
     private EmojiEntity mEmojiEntity;
 
-    /** 指示器 */
+    /**
+     * 指示器
+     */
     private Indicator mIndicator;
 
-    /** 当前页面图片来源的目录名称 */
+    /**
+     * 当前页面图片来源的目录名称
+     */
     private final String mEmojiDirName;
 
-    /** 表情页面的高度，会被初始化为1/4屏幕高度 */
+    /**
+     * 表情页面的高度，会被初始化为1/4屏幕高度
+     */
     private int mEmojiPageHeight = 0;
 
-    /** 删除表情的名称 */
+    /**
+     * 删除表情的名称
+     */
     private String mDeleteEmojiName;
 
-    /** 当前手指触摸GridView的状态 */
+    /**
+     * 当前手指触摸GridView的状态
+     */
     private int mCurMotionAction = -1;
 
     private Handler mMainHandle = new Handler(Looper.getMainLooper());
@@ -243,7 +259,9 @@ public class EmojiStandardPage implements IEmojiPage {
                 if (buildEmojiText(mEmojiDirName, mDeleteEmojiName).equals(text)) {
                     SendDeleteEventThread thread = new SendDeleteEventThread();
                     thread.start();
+//                    sendDeleteEvent();
                 }
+
                 return true;
             }
         });
@@ -260,7 +278,7 @@ public class EmojiStandardPage implements IEmojiPage {
         return gridView;
     }
 
-    private class SendDeleteEventThread extends Thread{
+    private class SendDeleteEventThread extends Thread {
         @Override
         public void run() {
             int delayTime = 200;
