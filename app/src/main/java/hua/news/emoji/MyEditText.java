@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 /**
@@ -34,7 +35,21 @@ public class MyEditText extends AppCompatEditText {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
+        setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.e("@@@hua","focus changed");
+            }
+        });
+    }
 
+    public void append(String text) {
+        getEditableText().insert(getSelectionStart(), text);
+    }
+
+    public void delete() {
+        int cursorIndex = getSelectionStart();
+        getEditableText().delete(cursorIndex - 1, cursorIndex);
     }
 
     @Override
@@ -64,6 +79,7 @@ public class MyEditText extends AppCompatEditText {
         @Override
         public boolean commitText(CharSequence text, int newCursorPosition) {
             Log.e("@@@hua", "commit text = " + text);
+
             return ic.commitText(text, newCursorPosition);
         }
 

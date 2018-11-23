@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FlexEditText">
+        <attr name="keyboard_type" format="integer"/>
+        <attr name="keyboard_theme" format="integer"></attr>
+    </declare-styleable>
+</resources>

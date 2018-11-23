@@ -20,7 +20,7 @@ import com.hua.emojikeyboard_core.core.SimpleViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText edittext;
+    private MyEditText edittext;
     private LinearLayout container;
     private ViewPager viewPager;
     private LinearLayout container1;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void emoji() {
-        edittext = (EditText) findViewById(R.id.editText);
+        edittext =  findViewById(R.id.editText);
         container = (LinearLayout) findViewById(R.id.keyboard);
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EmojiKeyBoard.getInstance().dismiss();
+            }
+        });
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edittext.append("abc");
+            }
+        });
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edittext.delete();
             }
         });
 
