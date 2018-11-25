@@ -1,5 +1,6 @@
 package com.hua.emojikeyboard_core.custom_edittext;
 
+import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ public interface IKeyboardTheme {
     @IdRes
     int themeId();
 
-    View inputView(LayoutInflater inflater, ViewGroup container);
+    View onCreateKeyboardView(Context context, LayoutInflater inflater, ViewGroup container);
 
     void onBindEditText(@NonNull FlexEditText editText);
 

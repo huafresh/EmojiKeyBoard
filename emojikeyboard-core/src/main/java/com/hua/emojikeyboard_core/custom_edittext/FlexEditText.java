@@ -37,8 +37,8 @@ public class FlexEditText extends AppCompatEditText implements View.OnFocusChang
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FlexEditText);
-        this.keyboardType = ta.getInt(R.styleable.FlexEditText_keyboard_type, keyboard_type_custom);
-        this.keyboardTheme = ta.getInt(R.styleable.FlexEditText_keyboard_theme, -1);
+//        this.keyboardType = ta.getInt(R.styleable.FlexEditText_keyboard_type, keyboard_type_custom);
+//        this.keyboardTheme = ta.getInt(R.styleable.FlexEditText_keyboard_theme, -1);
         ta.recycle();
     }
 

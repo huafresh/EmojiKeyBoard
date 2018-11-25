@@ -4,7 +4,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +16,7 @@ import java.util.List;
 
 import com.hua.emojikeyboard_core.EmojiKeyBoard;
 import com.hua.emojikeyboard_core.core.SimpleViewPagerAdapter;
+import com.hua.emojikeyboard_core.custom_edittext.KeyboardManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         List<View> views = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             TextView textView = new TextView(this);
-            textView.setText("页面"+i);
+            textView.setText("页面" + i);
             views.add(textView);
         }
         SimpleViewPagerAdapter adapter = new SimpleViewPagerAdapter(views);
@@ -59,18 +59,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void emoji() {
-        edittext =  findViewById(R.id.editText);
+        edittext = findViewById(R.id.editText);
         container = (LinearLayout) findViewById(R.id.keyboard);
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EmojiKeyBoard.getInstance().show(edittext, container);
+//                EmojiKeyBoard.getInstance().show(edittext, container);
+                KeyboardManager.get().showCustomSoftInput(MainActivity.this,
+                        R.id.keyboard_theme_simple);
             }
         });
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EmojiKeyBoard.getInstance().dismiss();
+//                EmojiKeyBoard.getInstance().dismiss();
+                KeyboardManager.get().dismissCustomSoftInput();
             }
         });
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
