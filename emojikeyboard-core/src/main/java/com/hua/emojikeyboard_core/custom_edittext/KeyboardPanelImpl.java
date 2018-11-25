@@ -2,8 +2,10 @@ package com.hua.emojikeyboard_core.custom_edittext;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
@@ -35,6 +38,7 @@ class KeyboardPanelImpl implements IKeyboardPanel {
     private PopupWindow keyboardPopup;
     private ComponentName attachWindow;
     private Rect tempRect = new Rect();
+    private int[] tempLocation = new int[2];
 
     KeyboardPanelImpl() {
         keyboardThemes.put(R.id.keyboard_theme_simple, new SimpleKeyboardTheme());
@@ -47,20 +51,24 @@ class KeyboardPanelImpl implements IKeyboardPanel {
         keyboardPopup = buildPopupWindow(activity, themeId);
         keyboardPopup.showAtLocation(new View(activity), Gravity.BOTTOM, 0, 0);
         attachWindow = activity.getComponentName();
+
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                int height = keyboardPopup.getContentView().getHeight();
-                activity.getWindow().setLayout(-1, activity.getResources().getDisplayMetrics().heightPixels - height);
-                activity.getWindow().setGravity(Gravity.TOP);
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        adjustParentWindowToFocusViewVisible(activity);
-                    }
-                }, 100);
+                int scrollOffset = getScrollOffset(activity.getWindow().getCurrentFocus(),
+                        keyboardPopup.getContentView());
+                activity.getWindow().getDecorView().scrollBy(0, scrollOffset);
             }
-        }, 1000);
+        },1000);
+    }
+
+    private int getScrollOffset(View focusView, View popupContent) {
+        focusView.getLocationOnScreen(tempLocation);
+        int focusBottom = tempLocation[1];
+        popupContent.getLocationOnScreen(tempLocation);
+        int popupTop = tempLocation[1];
+        int offset = focusBottom - popupTop;
+        return offset > 0 ? offset : 0;
     }
 
     private void adjustParentWindowToFocusViewVisible(Activity activity) {
