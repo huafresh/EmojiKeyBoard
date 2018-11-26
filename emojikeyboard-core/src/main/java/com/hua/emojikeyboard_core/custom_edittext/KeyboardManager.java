@@ -35,7 +35,7 @@ public class KeyboardManager {
         private static final KeyboardManager S_INSTANCE = new KeyboardManager();
     }
 
-    public void showSoftInput(Activity activity) {
+    public void showSystemSoftInput(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
@@ -46,7 +46,7 @@ public class KeyboardManager {
         }
     }
 
-    public void dismissSoftInput(Activity activity) {
+    public void dismissSystemSoftInput(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
@@ -58,12 +58,15 @@ public class KeyboardManager {
     }
 
     public void showCustomSoftInput(Activity activity, @IdRes int themeId) {
-        keyboardPanel.show(activity, themeId);
+        this.showCustomSoftInput(activity, themeId, activity.getWindow().getCurrentFocus());
+    }
+
+    public void showCustomSoftInput(Activity activity, @IdRes int themeId, View visibleView) {
+        keyboardPanel.show(activity, themeId, visibleView);
     }
 
     public void dismissCustomSoftInput() {
         keyboardPanel.dismiss();
     }
-
 
 }
