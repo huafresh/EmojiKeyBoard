@@ -16,8 +16,6 @@ import com.hua.emojikeyboard_core.R;
  */
 
 public class FlexEditText extends AppCompatEditText implements View.OnFocusChangeListener{
-
-
     private int keyboardType;
     private int keyboardTheme;
     private SparseArray<IKeyboardTheme> themes = new SparseArray<>();

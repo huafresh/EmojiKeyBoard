@@ -2,6 +2,7 @@ package com.hua.emojikeyboard_core.custom_edittext;
 
 import android.animation.ValueAnimator;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewParent;
 
@@ -13,7 +14,7 @@ import android.view.ViewParent;
 
 public class ScrollAdjustHelper {
 
-    private static final int SCROLL_DURATION = 500;
+    public static int SCROLL_DURATION = 200;
     private View targetView;
     private View popupView;
     private View containerView;
@@ -45,7 +46,7 @@ public class ScrollAdjustHelper {
 
     private void scrollContainerWithOffset(final View containerView, final int offset) {
         if (scrollAnimator == null) {
-            scrollAnimator = ValueAnimator.ofFloat(0, 1);
+            scrollAnimator = new ValueAnimator();
             scrollAnimator.setDuration(SCROLL_DURATION);
         }
 
@@ -56,29 +57,26 @@ public class ScrollAdjustHelper {
         scrollAnimator.removeAllUpdateListeners();
 
         tempScrollBy = 0;
+        scrollAnimator.setIntValues(0, offset);
         scrollAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                float percent = (float) animation.getAnimatedValue();
-                float scrollBy = offset * percent - tempScrollBy + 0.5f;
-                containerView.scrollBy(0, (int) scrollBy);
+                int curOffset = (int) animation.getAnimatedValue();
+                int scrollBy = curOffset - tempScrollBy;
+                containerView.scrollBy(0, scrollBy);
                 tempScrollBy += scrollBy;
                 containerScrollY += scrollBy;
+
+//                Log.e("@@@hua", "scrollBy = " + scrollBy +
+//                        ". tempScrollBy = " + tempScrollBy +
+//                        ". containerScrollY = " + containerScrollY);
             }
         });
         scrollAnimator.start();
     }
 
     public void reset() {
-        scrollContainerWithOffset(targetView, -containerScrollY);
-    }
-
-    void recycle(){
-        this.targetView = null;
-        this.popupView = null;
-        this.containerView = null;
-        this.containerScrollY = 0;
-        this.tempScrollBy = 0;
+        scrollContainerWithOffset(containerView, -containerScrollY);
     }
 
     private static @Nullable

@@ -23,4 +23,6 @@ public interface IKeyboardPanel {
     void show(Activity activity, @IdRes int themeId, View visibleView);
 
     void dismiss();
+
+    boolean isShowing();
 }

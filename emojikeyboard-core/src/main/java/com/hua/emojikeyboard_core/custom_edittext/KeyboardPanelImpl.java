@@ -28,75 +28,35 @@ import com.hua.emojikeyboard_core.R;
  */
 class KeyboardPanelImpl implements IKeyboardPanel {
     private static boolean registered = false;
-    private SparseArray<IKeyboardTheme> keyboardThemes = new SparseArray<>();
-    private SparseArray<View> keyboardViews = new SparseArray<>();
-    private PopupWindow keyboardPopup;
-    private ComponentName attachWindow;
-    private ScrollAdjustHelper scrollHelper;
+    private KeyboardPopup keyboardPopup;
 
     KeyboardPanelImpl() {
-        keyboardThemes.put(R.id.keyboard_theme_simple, new SimpleKeyboardTheme());
+
     }
 
     @Override
     public void show(Activity activity, int themeId, final View visibleView) {
         ensureActivityCallback(activity.getApplication());
-        dismiss();
-        keyboardPopup = buildPopupWindow(activity, themeId);
-        attachWindow = activity.getComponentName();
-        keyboardPopup.showAtLocation(new View(activity), Gravity.BOTTOM, 0, 0);
-        final View popupView = keyboardPopup.getContentView();
-        popupView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollEnsureViewVisible(visibleView, popupView);
-            }
-        });
-    }
 
-    private void scrollEnsureViewVisible(View visibleView, View popupView) {
-        if (scrollHelper == null) {
-            scrollHelper = new ScrollAdjustHelper(visibleView, popupView);
+        if (keyboardPopup == null || !keyboardPopup.isSameWindow(activity)) {
+            keyboardPopup = new KeyboardPopup(activity, themeId);
         } else {
-            scrollHelper.updateView(visibleView, popupView);
+            keyboardPopup.setThemeId(themeId);
         }
-        scrollHelper.adjust();
-    }
 
-    private PopupWindow buildPopupWindow(Activity activity, int themeId) {
-        PopupWindow popupWindow = new PopupWindow(activity);
-        View contentView = getKeyboardViewByThemeId(activity, themeId);
-        popupWindow.setContentView(contentView);
-        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.BLUE));
-        return popupWindow;
+        keyboardPopup.show(visibleView);
     }
 
     @Override
     public void dismiss() {
         if (keyboardPopup != null) {
             keyboardPopup.dismiss();
-            keyboardPopup = null;
-            attachWindow = null;
-            scrollHelper.reset();
-            scrollHelper.recycle();
         }
     }
 
-    private @Nullable
-    View getKeyboardViewByThemeId(Activity activity, @IdRes int themeId) {
-        View keyboardView = keyboardViews.get(themeId);
-        if (keyboardView == null) {
-            FrameLayout container = new FrameLayout(activity.getApplicationContext());
-            IKeyboardTheme iKeyboardTheme = keyboardThemes.get(themeId);
-            if (iKeyboardTheme != null) {
-                View view = iKeyboardTheme.onCreateKeyboardView(activity.getApplicationContext(),
-                        LayoutInflater.from(activity.getApplicationContext()), container);
-                container.addView(view);
-                keyboardView = container;
-            }
-        }
-        return keyboardView;
+    @Override
+    public boolean isShowing() {
+        return keyboardPopup != null && keyboardPopup.isShowing();
     }
 
     private void ensureActivityCallback(Application application) {
@@ -140,15 +100,14 @@ class KeyboardPanelImpl implements IKeyboardPanel {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            KeyboardPanelImpl.this.onActivityDestroyed(activity);
+            if (keyboardPopup != null && keyboardPopup.isSameWindow(activity)) {
+                if (keyboardPopup.isShowing()) {
+                    keyboardPopup.dismiss();
+                }
+                keyboardPopup = null;
+            }
         }
     }
 
-    private void onActivityDestroyed(Activity activity) {
-        if (attachWindow != null &&
-                attachWindow.equals(activity.getComponentName())) {
-            dismiss();
-        }
-    }
 
 }

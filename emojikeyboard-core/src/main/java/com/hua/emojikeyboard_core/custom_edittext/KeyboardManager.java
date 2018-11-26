@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import com.hua.emojikeyboard_core.R;
+
 /**
  * @author hua
  * @version V1.0
@@ -19,9 +21,12 @@ import android.widget.FrameLayout;
 
 public class KeyboardManager {
 
-    public static final int keyboard_type_custom = 0;
-    public static final int keyboard_type_system = 1;
     private IKeyboardPanel keyboardPanel;
+    static SparseArray<IKeyboardTheme> keyboardThemes = new SparseArray<>();
+
+    static {
+        keyboardThemes.put(R.id.keyboard_theme_simple, new SimpleKeyboardTheme());
+    }
 
     private KeyboardManager() {
         keyboardPanel = new KeyboardPanelImpl();
@@ -69,4 +74,11 @@ public class KeyboardManager {
         keyboardPanel.dismiss();
     }
 
+    public boolean isShowing() {
+        return keyboardPanel.isShowing();
+    }
+
+    public void registerKeyboardTheme(IKeyboardTheme theme) {
+        keyboardThemes.put(theme.themeId(), theme);
+    }
 }
