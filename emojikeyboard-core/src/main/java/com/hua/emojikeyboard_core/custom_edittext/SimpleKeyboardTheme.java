@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 
 import com.hua.emojikeyboard_core.R;
@@ -19,6 +21,8 @@ import java.util.List;
  * @date 2018/11/25
  */
 public class SimpleKeyboardTheme implements IKeyboardTheme {
+    private EditText inputTarget;
+
     @Override
     public int themeId() {
         return R.id.keyboard_theme_simple;
@@ -32,13 +36,24 @@ public class SimpleKeyboardTheme implements IKeyboardTheme {
         for (int i = 0; i < 12; i++) {
             data.add(i + "");
         }
-        grid.setAdapter(new ArrayAdapter<String>(context,
-                R.layout.item_keyboard_simple_digital, R.id.text, data));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
+                R.layout.item_keyboard_simple_digital, R.id.text, data);
+        grid.setAdapter(adapter);
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (inputTarget != null) {
+                    int curCursorIndex = inputTarget.getSelectionStart();
+                    inputTarget.getText().insert(curCursorIndex, position + "");
+                }
+            }
+        });
         return inputView;
     }
 
     @Override
-    public void onBindEditText(@NonNull FlexKeyboardEditText editText) {
-
+    public void onBindInputTarget(@NonNull View target) {
+        this.inputTarget = (EditText) target;
     }
+
 }

@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  * @date 2018/11/23 13:40
  */
 
-public class FlexKeyboardEditText extends AppCompatEditText
+public class KeyboardEditText extends AppCompatEditText
         implements View.OnFocusChangeListener, View.OnClickListener {
     public static final int KEYBOARD_TYPE_SYSTEM = 0;
     public static final int KEYBOARD_TYPE_CUSTOM = 1;
@@ -29,15 +29,15 @@ public class FlexKeyboardEditText extends AppCompatEditText
     private int visibleViewId;
     private boolean systemSoftEnable = true;
 
-    public FlexKeyboardEditText(Context context) {
+    public KeyboardEditText(Context context) {
         this(context, null);
     }
 
-    public FlexKeyboardEditText(Context context, AttributeSet attrs) {
+    public KeyboardEditText(Context context, AttributeSet attrs) {
         this(context, attrs, android.support.v7.appcompat.R.attr.editTextStyle);
     }
 
-    public FlexKeyboardEditText(Context context, AttributeSet attrs, int defStyle) {
+    public KeyboardEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, defStyle);
     }

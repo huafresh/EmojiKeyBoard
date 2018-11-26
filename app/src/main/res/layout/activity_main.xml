@@ -43,12 +43,12 @@
         android:layout_height="wrap_content"
         android:text="删除"/>
 
-    <com.hua.emojikeyboard_core.custom_edittext.FlexKeyboardEditText
+    <com.hua.emojikeyboard_core.custom_edittext.KeyboardEditText
         android:id="@+id/edit_2"
         android:layout_width="match_parent"
         android:layout_height="60dp"/>
 
-    <com.hua.emojikeyboard_core.custom_edittext.FlexKeyboardEditText
+    <com.hua.emojikeyboard_core.custom_edittext.KeyboardEditText
         android:id="@+id/ed_3"
         android:layout_width="match_parent"
         android:layout_height="60dp" />

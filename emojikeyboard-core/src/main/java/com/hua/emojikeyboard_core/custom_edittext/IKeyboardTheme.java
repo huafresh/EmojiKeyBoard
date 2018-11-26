@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 /**
  * @author hua
@@ -20,6 +21,6 @@ public interface IKeyboardTheme {
 
     View onCreateKeyboardView(Context context, LayoutInflater inflater, ViewGroup container);
 
-    void onBindEditText(@NonNull FlexKeyboardEditText editText);
+    void onBindInputTarget(@NonNull View target);
 
 }

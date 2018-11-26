@@ -9,14 +9,11 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
-
-import com.hua.emojikeyboard_core.R;
 
 /**
  * @author hua
@@ -70,6 +67,11 @@ class KeyboardPopup extends PopupWindow {
 
     void show(final View visibleView) {
         showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+        IKeyboardTheme keyboardTheme = KeyboardManager.keyboardThemes.get(themeId);
+        View focus = activity.getWindow().getCurrentFocus();
+        if (keyboardTheme != null && focus != null) {
+            keyboardTheme.onBindInputTarget(focus);
+        }
         keyboardView.post(new Runnable() {
             @Override
             public void run() {
