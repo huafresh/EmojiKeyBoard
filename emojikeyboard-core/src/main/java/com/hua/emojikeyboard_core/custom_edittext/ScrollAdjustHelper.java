@@ -14,7 +14,7 @@ import android.view.ViewParent;
 
 public class ScrollAdjustHelper {
 
-    public static int SCROLL_DURATION = 200;
+    public static int SCROLL_DURATION = 150;
     private View targetView;
     private View popupView;
     private View containerView;
