@@ -1,9 +1,14 @@
 package hua.news.emoji;
 
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +21,7 @@ import java.util.List;
 
 import com.hua.emojikeyboard_core.EmojiKeyBoard;
 import com.hua.emojikeyboard_core.core.SimpleViewPagerAdapter;
+import com.hua.emojikeyboard_core.custom_edittext.FlexKeyboardEditText;
 import com.hua.emojikeyboard_core.custom_edittext.KeyboardManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getLayoutInflater().setFactory2(new LayoutInflater.Factory2() {
+            @Override
+            public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+                return null;
+            }
+
+            @Override
+            public View onCreateView(String name, Context context, AttributeSet attrs) {
+                return null;
+            }
+        });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -79,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edittext.append("abc");
+                //edittext.append("abc");
             }
         });
         findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {

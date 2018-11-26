@@ -19,12 +19,13 @@ import java.lang.reflect.Method;
  * @date 2018/11/23 13:40
  */
 
-public class FlexKeyboardEditText extends AppCompatEditText implements View.OnFocusChangeListener {
+public class FlexKeyboardEditText extends AppCompatEditText
+        implements View.OnFocusChangeListener, View.OnClickListener {
     public static final int KEYBOARD_TYPE_SYSTEM = 0;
     public static final int KEYBOARD_TYPE_CUSTOM = 1;
     private int keyboardType;
     private int keyboardThemeId;
-    private int visibleView;
+    private int visibleViewId;
     private boolean systemSoftEnable = true;
 
     public FlexKeyboardEditText(Context context) {
@@ -32,7 +33,7 @@ public class FlexKeyboardEditText extends AppCompatEditText implements View.OnFo
     }
 
     public FlexKeyboardEditText(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, android.support.v7.appcompat.R.attr.editTextStyle);
     }
 
     public FlexKeyboardEditText(Context context, AttributeSet attrs, int defStyle) {
@@ -44,52 +45,72 @@ public class FlexKeyboardEditText extends AppCompatEditText implements View.OnFo
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FlexKeyboardEditText);
         this.keyboardType = ta.getInt(R.styleable.FlexKeyboardEditText_keyboard_type, KEYBOARD_TYPE_CUSTOM);
         this.keyboardThemeId = ta.getInt(R.styleable.FlexKeyboardEditText_keyboard_theme_id, R.id.keyboard_theme_simple);
-        this.visibleView = ta.getInt(R.styleable.FlexKeyboardEditText_keyboard_visible_view, -1);
+        this.visibleViewId = ta.getInt(R.styleable.FlexKeyboardEditText_keyboard_visible_view, -1);
         ta.recycle();
+
+        setFocusable(true);
+        setFocusableInTouchMode(true);
+        setOnFocusChangeListener(this);
+        setOnClickListener(this);
+
+        if (keyboardType == KEYBOARD_TYPE_CUSTOM && isActivityContext()) {
+            setIsShowSystemSoftInputOnFocus(false);
+        } else {
+            setIsShowSystemSoftInputOnFocus(true);
+        }
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            if (keyboardType == KEYBOARD_TYPE_CUSTOM) {
-                if (!KeyboardManager.get().isCustomShowing()) {
-                    Context context = getContext();
-                    if (context instanceof Activity) {
-                        View visibleView = ((Activity) context).getWindow().findViewById(this.visibleView);
-                        if (visibleView == null) {
-                            visibleView = this;
-                        }
-                        KeyboardManager.get().showCustomSoftInput((Activity) context, keyboardThemeId, visibleView);
-                    }
-                }
-                if (systemSoftEnable) {
-                    setIsShowSystemSoftInputOnFocus(false);
-                }
-            } else {
-                if (!systemSoftEnable) {
-                    setIsShowSystemSoftInputOnFocus(true);
-                }
+        //焦点变化快于系统键盘的弹出
+        if (!systemSoftEnable &&
+                hasFocus() &&
+                !KeyboardManager.get().isCustomShowing()) {
+            Activity activity = (Activity) getContext();
+            View visibleView = activity.getWindow().getDecorView().findViewById(visibleViewId);
+            if (visibleView == null) {
+                visibleView = this;
             }
+            KeyboardManager.get().showCustomSoftInput(activity, keyboardThemeId, visibleView);
         }
+    }
+
+    private boolean isActivityContext() {
+        return getContext() instanceof Activity;
     }
 
     private void setIsShowSystemSoftInputOnFocus(boolean show) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setShowSoftInputOnFocus(show);
-            systemSoftEnable = true;
-        } else {
-            try {
-                Method setShowSoftInputOnFocus = EditText.class.getMethod(
-                        "setShowSoftInputOnFocus", Boolean.TYPE);
-                setShowSoftInputOnFocus.setAccessible(true);
-                setShowSoftInputOnFocus.invoke(this, show);
-                systemSoftEnable = true;
-            } catch (Exception var3) {
-                var3.printStackTrace();
-                systemSoftEnable = false;
+        if (systemSoftEnable != show) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setShowSoftInputOnFocus(show);
+            } else {
+                try {
+                    Method setShowSoftInputOnFocus = EditText.class.getMethod(
+                            "setShowSoftInputOnFocus", Boolean.TYPE);
+                    setShowSoftInputOnFocus.setAccessible(true);
+                    setShowSoftInputOnFocus.invoke(this, show);
+                } catch (Exception var3) {
+                    var3.printStackTrace();
+                }
             }
+            systemSoftEnable = show;
         }
     }
 
 
+    @Override
+    public void onClick(View v) {
+        //点击事件慢于系统键盘的弹出
+        //如果点击使View获取了焦点，则此回调不会走。
+        if (!systemSoftEnable &&
+                hasFocus() &&
+                !KeyboardManager.get().isCustomShowing()) {
+            Activity activity = (Activity) getContext();
+            View visibleView = activity.getWindow().getDecorView().findViewById(visibleViewId);
+            if (visibleView == null) {
+                visibleView = this;
+            }
+            KeyboardManager.get().showCustomSoftInput(activity, keyboardThemeId, visibleView);
+        }
+    }
 }

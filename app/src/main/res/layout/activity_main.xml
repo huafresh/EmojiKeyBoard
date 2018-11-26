@@ -48,6 +48,11 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"/>
 
+    <com.hua.emojikeyboard_core.custom_edittext.FlexKeyboardEditText
+        android:id="@+id/ed_3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
     <LinearLayout
         android:id="@+id/keyboard"
         android:layout_width="match_parent"

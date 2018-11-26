@@ -20,7 +20,7 @@ import com.hua.emojikeyboard_core.R;
  * @date 2018/11/23 14:03
  */
 
-public class KeyboardManager {
+public final class KeyboardManager {
 
     private IKeyboardPanel keyboardPanel;
     static SparseArray<IKeyboardTheme> keyboardThemes = new SparseArray<>();
