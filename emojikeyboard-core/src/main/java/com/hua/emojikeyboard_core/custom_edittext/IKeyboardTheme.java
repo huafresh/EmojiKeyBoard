@@ -20,6 +20,6 @@ public interface IKeyboardTheme {
 
     View onCreateKeyboardView(Context context, LayoutInflater inflater, ViewGroup container);
 
-    void onBindEditText(@NonNull FlexEditText editText);
+    void onBindEditText(@NonNull FlexKeyboardEditText editText);
 
 }

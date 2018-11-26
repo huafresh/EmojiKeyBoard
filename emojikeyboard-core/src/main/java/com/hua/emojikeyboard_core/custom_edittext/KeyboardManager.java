@@ -3,6 +3,7 @@ package com.hua.emojikeyboard_core.custom_edittext;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.util.SparseArray;
@@ -40,7 +41,7 @@ public class KeyboardManager {
         private static final KeyboardManager S_INSTANCE = new KeyboardManager();
     }
 
-    public void showSystemSoftInput(Activity activity) {
+    public static void showSystemSoftInput(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
@@ -51,7 +52,7 @@ public class KeyboardManager {
         }
     }
 
-    public void dismissSystemSoftInput(Activity activity) {
+    public static void dismissSystemSoftInput(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
@@ -74,11 +75,18 @@ public class KeyboardManager {
         keyboardPanel.dismiss();
     }
 
-    public boolean isShowing() {
+    public static boolean isSysKeyboardShowing(Activity activity) {
+        int screenHeight = activity.getWindow().getDecorView().getHeight();
+        Rect rect = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+        return screenHeight - rect.bottom != 0;
+    }
+
+    public boolean isCustomShowing() {
         return keyboardPanel.isShowing();
     }
 
-    public void registerKeyboardTheme(IKeyboardTheme theme) {
+    public static void registerKeyboardTheme(IKeyboardTheme theme) {
         keyboardThemes.put(theme.themeId(), theme);
     }
 }

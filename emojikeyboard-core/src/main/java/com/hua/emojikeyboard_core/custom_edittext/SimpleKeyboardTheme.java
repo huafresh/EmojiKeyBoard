@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.SimpleAdapter;
 
 import com.hua.emojikeyboard_core.R;
 
@@ -39,7 +38,7 @@ public class SimpleKeyboardTheme implements IKeyboardTheme {
     }
 
     @Override
-    public void onBindEditText(@NonNull FlexEditText editText) {
+    public void onBindEditText(@NonNull FlexKeyboardEditText editText) {
 
     }
 }
