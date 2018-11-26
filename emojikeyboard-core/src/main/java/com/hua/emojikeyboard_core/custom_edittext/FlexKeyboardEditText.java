@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -48,10 +49,20 @@ public class FlexKeyboardEditText extends AppCompatEditText
         this.visibleViewId = ta.getInt(R.styleable.FlexKeyboardEditText_keyboard_visible_view, -1);
         ta.recycle();
 
-        setFocusable(true);
         setFocusableInTouchMode(true);
         setOnFocusChangeListener(this);
         setOnClickListener(this);
+        setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK &&
+                        KeyboardManager.get().isCustomShowing()) {
+                    KeyboardManager.get().dismissCustomSoftInput();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         if (keyboardType == KEYBOARD_TYPE_CUSTOM && isActivityContext()) {
             setIsShowSystemSoftInputOnFocus(false);
